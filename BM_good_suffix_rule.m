@@ -5,7 +5,6 @@ function [l_vals] = BM_good_suffix_rule(pattern)
 % test: BM_good_suffix_rule('AGCAGTACGTAGCCTAGCAGTA')
 % test: BM_good_suffix_rule('TAGCAGTACGTAGCCTAGCAGTA')
 % test: BM_good_suffix_rule('GAGCAGTACGTAGCCTAGCAGTA')
-% Ask how to obtain l' values and incorporate later
 
 n_vals = fliplr(z_algo(reverse(pattern)));
 n = length(pattern);

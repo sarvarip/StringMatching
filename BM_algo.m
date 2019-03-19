@@ -2,13 +2,15 @@ function [occurences] = BM_algo(pattern, text)
 %% Page 22, Gusfield
 % k is the pointer that is "shifted"
 % occurences denotes where the exact matching ENDS in the text
-% example: BM_algo('AGCAGTACGTAGCCTAGCAGTA', 'ACGTAAGGCAGTACCAGCAGTACGTAGCCTAGCAGTAACGGT')
+% example: BM_algo('AGCAGTACGTAGCCTAGCAGTA', 'ACGTAAGGCAGTACCAGCAGTACGTAGCCTAGCAGTAACGGTGCTGTAGCAGTACGTAGCCTAGCAGTAAGTACCAGCTA')
 % this example uses the good suffix rule too!
 
 [A_look, C_look, G_look, T_look] = BM_bad_char_rule(pattern);
 l_vals = BM_good_suffix_rule(pattern);
-occurences=[];
+sp_vals = sp_algo_recursive(pattern);
 n = length(pattern);
+sp_val_n = sp_vals(n); %described as l-values in Gusfield
+occurences=[];
 m = length(text);
 
 k = n;
@@ -21,7 +23,7 @@ while k<=m
     end
     if i==0
         occurences = [occurences, k];
-        k = k+1;
+        k = k+n-sp_val_n;
     else
         mismatching_char = text(h); 
         num = i;
