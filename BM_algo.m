@@ -2,7 +2,7 @@ function [occurences] = BM_algo(pattern, text) %#codegen
 %% Page 22, Gusfield
 % k is the pointer that is "shifted"
 % occurences denotes where the exact matching ENDS in the text
-% example: BM_algo('AGCAGTACGTAGCCTAGCAGTA', 'ACGTAAGGCAGTACCAGCAGTACGTAGCCTAGCAGTAACGGTGCTGTAGCAGTACGTAGCCTAGCAGTAAGTACCAGCTA')
+% example: BM_algo('AGCAGTACGTAGCCTAGCAGTA', 'ACTCATGCTAAAGCTACAGCTAGCAGCAGTACGTAGCCTAGCAGTAACGCAAGCAGTACGTAGCCTAGCAGTAT')
 % example 2: BM_algo('ACTGAACTGACT','CCGCTGAACTGACTGACTGAACTGACTTGAACTGACT');
 % this example uses the good suffix rule too!
 
@@ -44,9 +44,9 @@ while k<=m
                 pause;
             end
         end
-        if l_vals(i) > 0 && i<n %i<n meaning that there was at least one 
+        if i<n %i<n meaning that there was at least one 
             %character matching
-            k = k + max(n-l_vals(i), num-lookup_val);
+            k = k + max(n-l_vals(i+1), num-lookup_val);
         else
             k = k + num-lookup_val;
         end
