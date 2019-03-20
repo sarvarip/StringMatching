@@ -1,21 +1,29 @@
-function [A_look, C_look, G_look, T_look] = BM_bad_char_rule(pattern)
+function [lookup] = BM_bad_char_rule(pattern) %#codegen
  %% Assuming that pattern is DNA, so alphabet is {A,C,G,T}
  
  n = length(pattern);
- A_look = [];
- C_look = [];
- G_look = [];
- T_look = [];
+ lookup = -1*ones(4,n);
  
-for i=n:-1:1
+if pattern(1) == 'A'
+    lookup(1,1) = 1;
+elseif pattern(2) == 'C'
+    lookup(2,1) = 1;
+elseif pattern(3) == 'G'
+    lookup(3,1) = 1;
+else
+    lookup(4,1) = 1;
+end
+ 
+for i=2:1:n
+    lookup(:,i) = lookup(:,i-1);
     if pattern(i) == 'A'
-        A_look = [A_look, i];
+        lookup(1,i) = i;
     elseif pattern(i) == 'C'
-        C_look = [C_look, i];
+        lookup(2,i) = i;
     elseif pattern(i) == 'G'
-        G_look = [G_look, i];
+        lookup(3,i) = i;
     else
-        T_look = [T_look, i];
+        lookup(4,i) = i;
     end
 end
 

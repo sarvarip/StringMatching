@@ -1,11 +1,11 @@
-function [occurences] = BM_algo(pattern, text)
+function [occurences] = BM_algo(pattern, text) %#codegen
 %% Page 22, Gusfield
 % k is the pointer that is "shifted"
 % occurences denotes where the exact matching ENDS in the text
 % example: BM_algo('AGCAGTACGTAGCCTAGCAGTA', 'ACGTAAGGCAGTACCAGCAGTACGTAGCCTAGCAGTAACGGTGCTGTAGCAGTACGTAGCCTAGCAGTAAGTACCAGCTA')
 % this example uses the good suffix rule too!
 
-[A_look, C_look, G_look, T_look] = BM_bad_char_rule(pattern);
+lookup = BM_bad_char_rule(pattern);
 l_vals = BM_good_suffix_rule(pattern);
 sp_vals = sp_algo_recursive(pattern);
 n = length(pattern);
@@ -17,7 +17,7 @@ k = n;
 while k<=m 
     i = n;
     h = k;
-    while i>0 && pattern(i) == text(h) %need to do something if no match at all, i==n
+    while i>0 && pattern(i) == text(h) 
         i = i-1;
         h = h-1;
     end
@@ -28,13 +28,13 @@ while k<=m
         mismatching_char = text(h); 
         num = i;
         if mismatching_char == 'A'
-            lookup_val = max(A_look(A_look<num));
+            lookup_val = lookup(1,num-1);
         elseif mismatching_char == 'C'
-            lookup_val = max(C_look(C_look<num));
+            lookup_val = lookup(2,num-1);
         elseif mismatching_char == 'G'
-            lookup_val = max(G_look(G_look<num));
+            lookup_val = lookup(3,num-1);
         elseif mismatching_char == 'T'
-            lookup_val = max(T_look(T_look<num));
+            lookup_val = lookup(4,num-1);
         else
             disp('Error: wrong dictionary is assumed');
             pause;
