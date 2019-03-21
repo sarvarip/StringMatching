@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <cassert>
+#include <ctime>
 
 using std::vector;
 using std::string;
@@ -259,8 +260,11 @@ main(int argc, const char * const argv[]) {
     read_fasta_file_and_concat(text_filename, text);
     size_t matches = 0;
 
+    int time_start = clock();
     bm(pattern, text, matches);
+    int time_end = clock();
     cout << endl << "Number of matches is: " << matches << endl;
+    cout << endl << "Runtime was " << time_end-time_start << endl;
 
 
 return 0;
