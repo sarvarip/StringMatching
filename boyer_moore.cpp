@@ -1,3 +1,6 @@
+//sp-values, z-values and read_fasta_file were written by Andrew Smith, Professor, Instructor of MATH-578A
+//rest was written by Peter Sarvari
+
 #include <sys/stat.h> // to get filesize in *nix
 #include <vector>
 #include <string>
